@@ -1,0 +1,164 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --white: #fff;
+  --dark: #151515;
+
+  --gray: #232323;
+  --gray-100: #5d5d5d;
+  --gray-200: #262626;
+
+  --blue: #92c4ed;
+  --red: #fe6060;
+  --yellow: #fde67e;
+
+  --dark-gradient: linear-gradient(113deg, #151515 0%, #000 100%);
+}
+
+body {
+  background: var(--dark-gradient);
+  color: var(--white);
+  min-height: 100vh;
+}
+
+.play-regular {
+  font-family: "Play", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.play-bold {
+  font-family: "Play", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.box {
+  background-color: var(--dark);
+  border: 1px solid var(--gray-200);
+  border-radius: 5px;
+}
+
+.header {
+  padding: 3rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.scoreboard {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.scoreboard h1 {
+  font-size: 3rem;
+  padding: 0.3rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.player-0 {
+  border-bottom: 1px solid var(--yellow);
+}
+
+.player-x {
+  border-bottom: 1px solid var(--blue);
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.scoreboard-container {
+  display: flex;
+}
+
+.scoreboard-container h2 {
+  width: 64px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.scoreboard-container [data-score="0"] {
+  border-right: 1px solid #262626;
+}
+
+.board-container {
+  margin-top: 5rem;
+}
+
+.board {
+  max-width: max-content;
+  position: relative;
+  margin: 0 auto 2rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+}
+
+.board-cell {
+  width: 120px;
+  height: 120px;
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  cursor: pointer;
+}
+
+.board-cell-disabled {
+  cursor: not-allowed;
+  color: var(--gray-100);
+}
+
+.winner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.winner h1 {
+  font-size: 4rem;
+}
+
+.winner span {
+  margin-top: 15px;
+  text-transform: uppercase;
+}
+
+.reset-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.reset-btn {
+  background-color: var(--blue);
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  color: var(--dark);
+  cursor: pointer;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.hidden {
+  display: none;
+}

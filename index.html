@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="styles.css" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tic Tac Toy</title>
+  </head>
+  <body>
+    <header class="header">
+      <div class="scoreboard">
+        <h1 id="p-0" class="play-regular player-0">0</h1>
+
+        <div class="box scoreboard-container">
+          <h2 class="play-regular" data-score="0">0</h2>
+          <h2 class="play-regular" data-score="x">0</h2>
+        </div>
+
+        <h1 id="p-x" class="play-regular" data-player="0">X</h1>
+      </div>
+    </header>
+
+    <main>
+      <div class="board-container">
+        <div class="board" id="board"></div>
+      </div>
+
+      <div class="winner hidden">
+        <h1 class="play-regular" id="winner-player"></h1>
+        <span class="play-regular">Winner</span>
+      </div>
+
+      <div class="reset-container hidden">
+        <button class="reset-btn play-regular">Reset game</button>
+      </div>
+    </main>
+
+    <script src="/script.js"></script>
+  </body>
+</html>
