@@ -15,27 +15,36 @@ const WIN_CONDITIONS = [
 resetButton.addEventListener("click", () => {
   currentPlayer.reset();
   gameBoard.reset();
-  resetBoard();
+  boardCells.reset();
 });
 
-const resetBoard = () => {
-  const boardCells = document.querySelectorAll(".board-cell");
+const boardCells = (() => {
+  const create = () => {
+    for (let i = 1; i <= 9; i++) {
+      const button = document.createElement("button");
+      button.id = i;
+      button.type = "button";
+      button.readOnly = true;
+      button.className = "board-cell box play-regular";
+      button.addEventListener("click", () => gameBoard.selectField(i));
+      board.appendChild(button);
+    }
+  };
 
-  boardCells.forEach((cell) => {
-    cell.textContent = "";
-    cell.classList.remove("board-cell-disabled");
-  });
-};
+  const reset = () => {
+    const boardCells = document.querySelectorAll(".board-cell");
+
+    boardCells.forEach((cell) => {
+      cell.textContent = "";
+      cell.classList.remove("board-cell-disabled");
+    });
+  };
+
+  return { create, reset };
+})();
+
 (() => {
-  for (let i = 1; i <= 9; i++) {
-    const button = document.createElement("button");
-    button.id = i;
-    button.type = "button";
-    button.readOnly = true;
-    button.className = "board-cell box play-regular";
-    button.addEventListener("click", () => gameBoard.selectField(i));
-    board.appendChild(button);
-  }
+  boardCells.create();
 })();
 
 const currentPlayer = (() => {
@@ -80,6 +89,15 @@ const gameBoard = (() => {
     X: [],
   };
 
+  function anyButtonEmpty() {
+    for (const button of buttons) {
+      if (button.innerText.trim() === "") {
+        return true;
+      }
+    }
+    return false;
+  }
+
   const score = { 0: 0, X: 0 };
 
   const get = () => players;
@@ -102,6 +120,12 @@ const gameBoard = (() => {
   };
 
   const checkWinner = (list, player) => {
+    const hasField = anyButtonEmpty();
+
+    if (!hasField) {
+      return tied();
+    }
+
     for (let i = 0; i < WIN_CONDITIONS.length; i++) {
       const [a, b, c] = WIN_CONDITIONS[i];
 
@@ -125,6 +149,10 @@ const gameBoard = (() => {
   };
 
   const showResult = (winList, player) => {
+    const winnerEl = document.getElementById("winner-player");
+    const winnerContainer = document.querySelector(".winner");
+    const resetContainer = document.querySelector(".reset-container");
+
     for (let i = 0; i < buttons.length; i++) {
       const id = Number(buttons[i].id);
       if (!winList.includes(id)) {
@@ -132,24 +160,38 @@ const gameBoard = (() => {
       }
     }
 
-    winner.innerText = player;
+    winnerEl.innerText = player;
 
     winnerContainer.classList.remove("hidden");
     resetContainer.classList.remove("hidden");
 
     if (player === "0") {
-      winner.style.color = "#92c4ed";
+      winnerEl.style.color = "#92c4ed";
     } else {
-      winner.style.color = "#fde67e";
+      winnerEl.style.color = "#fde67e";
+    }
+  };
+
+  const tied = () => {
+    const tiedEl = document.querySelector(".tied");
+    const resetContainer = document.querySelector(".reset-container");
+
+    resetContainer.classList.remove("hidden");
+    tiedEl.classList.remove("hidden");
+
+    for (const button of buttons) {
+      button.classList.add("board-cell-disabled");
     }
   };
 
   const reset = () => {
     const winnerContainer = document.querySelector(".winner");
     const resetContainer = document.querySelector(".reset-container");
+    const tiedEl = document.querySelector(".tied");
 
     winnerContainer.classList.add("hidden");
     resetContainer.classList.add("hidden");
+    tiedEl.classList.add("hidden");
 
     finished = false;
     winner = null;
