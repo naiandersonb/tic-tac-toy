@@ -80,6 +80,9 @@ const gameBoard = (() => {
   const score0 = document.querySelector("[data-score='0']");
   const scoreX = document.querySelector("[data-score='x']");
   const buttons = document.querySelectorAll(".board-cell");
+  const winnerContainer = document.querySelector(".winner");
+  const resetContainer = document.querySelector(".reset-container");
+  const tiedEl = document.querySelector(".tied");
 
   let finished = false;
   let winner = null;
@@ -150,8 +153,6 @@ const gameBoard = (() => {
 
   const showResult = (winList, player) => {
     const winnerEl = document.getElementById("winner-player");
-    const winnerContainer = document.querySelector(".winner");
-    const resetContainer = document.querySelector(".reset-container");
 
     for (let i = 0; i < buttons.length; i++) {
       const id = Number(buttons[i].id);
@@ -173,9 +174,6 @@ const gameBoard = (() => {
   };
 
   const tied = () => {
-    const tiedEl = document.querySelector(".tied");
-    const resetContainer = document.querySelector(".reset-container");
-
     resetContainer.classList.remove("hidden");
     tiedEl.classList.remove("hidden");
 
@@ -185,10 +183,6 @@ const gameBoard = (() => {
   };
 
   const reset = () => {
-    const winnerContainer = document.querySelector(".winner");
-    const resetContainer = document.querySelector(".reset-container");
-    const tiedEl = document.querySelector(".tied");
-
     winnerContainer.classList.add("hidden");
     resetContainer.classList.add("hidden");
     tiedEl.classList.add("hidden");
